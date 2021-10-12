@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">MyNotes-firebase</string>
+    <string name="welcome_back">Welcome Back !</string>
+    <string name="log_in">Log in</string>
+    <string name="enter_your_e_mail">Enter your E-mail</string>
+    <string name="enter_your_password">Enter your Password</string>
+    <string name="sign_in">Sign In</string>
+    <string name="need_account_sign_up">Need account ? sign Up</string>
+    <string name="forgot_password">forgot Password</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="re_enter_your_password">Re-enter your password</string>
+    <string name="back_to_log_in_page">Back to log in page</string>
+    <string name="forgot_password_">Forgot password?</string>
+    <string name="submit">Submit</string>
+    <string name="go_to_login_page">Go to login page</string>
+    <string name="delete_all_notes">Delete All Notes</string>
+    <string name="log_out">Log out</string>
+    <string name="title">Title...</string>
+    <string name="notes">notes...</string>
+    <string name="sign_in_with_google">Sign In With Google</string>
+    <string name="sign_in_with_facebook">Sign In With Facebook</string>
+
+    <string name="facebook_app_id">454340859281937</string>
+    <string name="fb_login_protocol_scheme">fb454340859281937</string>
+
+</resources>
