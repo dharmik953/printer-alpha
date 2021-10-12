@@ -50,6 +50,7 @@ public class addNotes extends AppCompatActivity {
             }
             else {
                 DocumentReference reference = firestore.collection("notes").document(user.getUid()).collection("myNotes").document();
+//                DocumentReference reference = firestore.collection("notes").document(user.getUid()).getParent().document();
                 Map<String,Object> note = new HashMap<>();
                 note.put("title",mTitle.getText().toString());
                 note.put("content",mNote.getText().toString());

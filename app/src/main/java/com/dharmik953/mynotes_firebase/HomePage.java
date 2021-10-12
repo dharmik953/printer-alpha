@@ -2,6 +2,7 @@ package com.dharmik953.mynotes_firebase;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
@@ -40,6 +41,7 @@ public class HomePage extends AppCompatActivity {
 
     RecyclerView recyclerView;
     StaggeredGridLayoutManager layoutManager;
+    LinearLayoutManager layoutManager2;
 
     myadapter adapter;
     FirebaseFirestore firestore;
@@ -56,11 +58,12 @@ public class HomePage extends AppCompatActivity {
         datalist=new ArrayList<>();
         recyclerView = findViewById(R.id.recyclerview);
         recyclerView.setHasFixedSize(true);
-        layoutManager = new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL);
-        recyclerView.setLayoutManager(layoutManager);
+        layoutManager2 = new LinearLayoutManager(getApplicationContext());
+//        layoutManager = new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(layoutManager2);
         recyclerView.setAdapter(adapter);
 
-        firestore.collection("myNotes").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+        firestore.collection("notes").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 List<DocumentSnapshot> list=queryDocumentSnapshots.getDocuments();
@@ -107,7 +110,7 @@ public class HomePage extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-//
+
 //    @Override
 //    protected void onStart() {
 //        super.onStart();

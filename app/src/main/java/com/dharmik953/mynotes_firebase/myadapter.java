@@ -51,7 +51,7 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder> {
 
                 title = itemView.findViewById(R.id.note_title);
                 content = itemView.findViewById(R.id.note_description);
-                layout = itemView.findViewById(R.id.Note);
+//                layout = itemView.findViewById(R.id.Note);
             }
         }
     }
