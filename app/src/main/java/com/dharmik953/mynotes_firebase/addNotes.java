@@ -27,7 +27,6 @@ public class addNotes extends AppCompatActivity {
     FirebaseFirestore firestore;
     FirebaseUser user;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
