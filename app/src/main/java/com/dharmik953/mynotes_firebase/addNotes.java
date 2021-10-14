@@ -10,11 +10,15 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.HashMap;
 import java.util.Objects;
 
 public class addNotes extends AppCompatActivity {
@@ -24,6 +28,9 @@ public class addNotes extends AppCompatActivity {
     FirebaseAuth mAuth;
     FirebaseFirestore firestore;
     FirebaseUser user;
+
+    private FirebaseDatabase db = FirebaseDatabase.getInstance();
+    private DatabaseReference root = db.getReference().child("myNotes");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +56,19 @@ public class addNotes extends AppCompatActivity {
             }
             else {
 //                FirebaseDatabase.getInstance().getReference().child("mynotes").push().child("title").setValue(title);
-                FirebaseDatabase.getInstance().getReference().child("mynotes").push().child("note").setValue(note);
+//                FirebaseDatabase.getInstance().getReference().child("mynotes").push().child("note").setValue(note);
+
+                HashMap<String , String> userMap = new HashMap<>();
+
+                userMap.put("title" , title);
+                userMap.put("content" , note);
+
+                root.push().setValue(userMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        Toast.makeText(addNotes.this, "Data Saved", Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
             startActivity(new Intent(addNotes.this,HomePage.class));
         });

@@ -3,6 +3,7 @@ package com.dharmik953.mynotes_firebase;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -12,12 +13,11 @@ import java.util.ArrayList;
 
 public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder> {
 
-    ArrayList<firebaseModel> datalist;
+    ArrayList<Model> datalist;
 
-    public myadapter(ArrayList<firebaseModel> datalist) {
+    public myadapter(HomePage homePage, ArrayList<Model> datalist) {
         this.datalist = datalist;
     }
-
 
     @NonNull
     @Override
@@ -29,8 +29,9 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder> {
     @Override
     public void onBindViewHolder(@NonNull myadapter.myviewholder holder, int position) {
 
-        holder.title.setText(firebaseModel.getTitle());
-        holder.content.setText(firebaseModel.getContent());
+        Model model = datalist.get(position);
+        holder.title.setText(model.getTitle());
+        holder.content.setText(model.getContent());
     }
 
     @Override
@@ -42,12 +43,13 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder> {
     {
         private final TextView title;
         private final TextView content;
+        LinearLayout layout;
         public myviewholder(@NonNull View itemView) {
             super(itemView);
 
                 title = itemView.findViewById(R.id.note_title);
                 content = itemView.findViewById(R.id.note_description);
-//                layout = itemView.findViewById(R.id.Note);
+                layout = itemView.findViewById(R.id.Note);
             }
         }
     }

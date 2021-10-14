@@ -7,24 +7,24 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="10dp"
         app:cardCornerRadius="10dp"
         app:cardMaxElevation="5dp"
         android:id="@+id/note_card"
         android:elevation="5dp">
-    </androidx.cardview.widget.CardView>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/Note"
-        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/Note"
+            android:orientation="vertical">
 
             <TextView
 
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
-                android:textSize="20sp"
+                android:textSize="25sp"
                 android:text="this is your developer"
                 android:textColor="@color/black"
                 android:textStyle="bold"
@@ -32,18 +32,20 @@
 
             </TextView>
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:padding="10dp"
+                android:textSize="18sp"
+                android:text="this is your developer note"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:id="@+id/note_description">
+            </TextView>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:textSize="15sp"
-            android:text="this is your developer note"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            android:id="@+id/note_description">
-        </TextView>
+        </LinearLayout>
 
-    </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
 
 </RelativeLayout>

@@ -7,7 +7,7 @@ public class  firebaseModel implements Serializable{
     public static String title;
     public static String content;
 
-    public firebaseModel(){ }
+//    public firebaseModel(){ }
 
     public firebaseModel(String title, String content) {
         firebaseModel.title = title;

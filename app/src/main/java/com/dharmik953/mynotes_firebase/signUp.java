@@ -81,5 +81,4 @@ public class signUp extends AppCompatActivity {
             });
         }else Toast.makeText(this, "Failed to send Email", Toast.LENGTH_SHORT).show();
     }
-
 }

@@ -2,15 +2,15 @@ package com.dharmik953.mynotes_firebase;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import com.dharmik953.mynotes_firebase.databinding.ActivityHomePageBinding;
+
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -18,7 +18,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -30,52 +29,40 @@ public class HomePage extends AppCompatActivity {
 
     FloatingActionButton addNotes;
     FirebaseAuth mAuth;
-
-    ActivityHomePageBinding binding;
-
-    RecyclerView recyclerView;
-    StaggeredGridLayoutManager layoutManager;
-    LinearLayoutManager layoutManager2;
+    CardView cardView;
 
     myadapter adapter;
-    FirebaseFirestore firestore;
-    ArrayList<firebaseModel> datalist;
+
+    private final FirebaseDatabase db = FirebaseDatabase.getInstance();
+    private final DatabaseReference root = db.getReference().child("myNotes");
+    private ArrayList<Model> list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
 
-        binding = ActivityHomePageBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
 
-        datalist=new ArrayList<>();
-        recyclerView = findViewById(R.id.recyclerview);
+        cardView = findViewById(R.id.note_card);
+
+        RecyclerView recyclerView = findViewById(R.id.recyclerview);
         recyclerView.setHasFixedSize(true);
-        layoutManager2 = new LinearLayoutManager(getApplicationContext());
-//        layoutManager = new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL);
-        recyclerView.setLayoutManager(layoutManager2);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        list = new ArrayList<>();
+        adapter = new myadapter(this, list);
+
         recyclerView.setAdapter(adapter);
 
-//        firestore.collection("notes").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-//            @Override
-//            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-//                List<DocumentSnapshot> list=queryDocumentSnapshots.getDocuments();
-//                for(DocumentSnapshot d:list)
-//                {
-//                    firebaseModel obj=d.toObject(firebaseModel.class);
-//                    datalist.add(obj);
-//                }
-//                adapter.notifyDataSetChanged();
-//            }
-//        });
 
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("mynotes");
-
-        reference.addValueEventListener(new ValueEventListener() {
+        root.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    Model model = dataSnapshot.getValue(Model.class);
+                    list.add(model);
+                }
+                adapter.notifyDataSetChanged();
             }
 
             @Override
@@ -88,14 +75,14 @@ public class HomePage extends AppCompatActivity {
 
         Objects.requireNonNull(getSupportActionBar()).setTitle("Notes");
 
-        addNotes.setOnClickListener(v -> startActivity(new Intent(HomePage.this,addNotes.class)));
+        addNotes.setOnClickListener(v -> startActivity(new Intent(HomePage.this, addNotes.class)));
 
     }
 
     @Override
     public boolean onCreatePanelMenu(int featureId, @NonNull @NotNull Menu menu) {
 
-        getMenuInflater().inflate(R.menu.menu,menu);
+        getMenuInflater().inflate(R.menu.menu, menu);
 
         return super.onCreatePanelMenu(featureId, menu);
     }
@@ -104,11 +91,11 @@ public class HomePage extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
 
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.logout:
-                    mAuth.signOut();
-                    finish();
-                    startActivity(new Intent(HomePage.this,MainActivity.class));
+                mAuth.signOut();
+                finish();
+                startActivity(new Intent(HomePage.this, MainActivity.class));
 
             case R.id.delete_all_notes:
 
@@ -116,18 +103,4 @@ public class HomePage extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
-//    @Override
-//    protected void onStart() {
-//        super.onStart();
-//        adapter.startListening();
-//    }
-//
-//    @Override
-//    protected void onStop() {
-//        super.onStop();
-//        if (adapter!=null){
-//            adapter.stopListening();
-//        }
-//    }
 }
