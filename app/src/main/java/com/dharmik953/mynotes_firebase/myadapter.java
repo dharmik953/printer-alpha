@@ -3,7 +3,6 @@ package com.dharmik953.mynotes_firebase;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -39,13 +38,10 @@ public class myadapter extends RecyclerView.Adapter<myadapter.myviewholder> {
         return datalist.size();
     }
 
-    class myviewholder extends RecyclerView.ViewHolder
+    static class myviewholder extends RecyclerView.ViewHolder
     {
-
         private final TextView title;
         private final TextView content;
-        LinearLayout layout;
-
         public myviewholder(@NonNull View itemView) {
             super(itemView);
 

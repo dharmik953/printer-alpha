@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -37,19 +36,9 @@ public class MainActivity extends AppCompatActivity {
         facebook_logIn = findViewById(R.id.btn_facebook);
         google_login = findViewById(R.id.btn_google);
 
-        google_login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this,googleSignin.class));
-            }
-        });
+        google_login.setOnClickListener(v -> startActivity(new Intent(MainActivity.this,googleSignin.class)));
 
-        facebook_logIn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, facebooklogin.class));
-            }
-        });
+        facebook_logIn.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, facebooklogin.class)));
 
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();

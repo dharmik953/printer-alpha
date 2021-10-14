@@ -11,17 +11,18 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import com.dharmik953.mynotes_firebase.databinding.ActivityHomePageBinding;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 
@@ -56,20 +57,32 @@ public class HomePage extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager2);
         recyclerView.setAdapter(adapter);
 
-        firestore.collection("notes").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+//        firestore.collection("notes").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+//            @Override
+//            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+//                List<DocumentSnapshot> list=queryDocumentSnapshots.getDocuments();
+//                for(DocumentSnapshot d:list)
+//                {
+//                    firebaseModel obj=d.toObject(firebaseModel.class);
+//                    datalist.add(obj);
+//                }
+//                adapter.notifyDataSetChanged();
+//            }
+//        });
+
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("mynotes");
+
+        reference.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                List<DocumentSnapshot> list=queryDocumentSnapshots.getDocuments();
-                for(DocumentSnapshot d:list)
-                {
-                    firebaseModel obj=d.toObject(firebaseModel.class);
-                    datalist.add(obj);
-                }
-                adapter.notifyDataSetChanged();
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
-
-        firestore = FirebaseFirestore.getInstance();
 
         addNotes = findViewById(R.id.add_button);
 

@@ -12,11 +12,9 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
 
 public class addNotes extends AppCompatActivity {
@@ -44,23 +42,18 @@ public class addNotes extends AppCompatActivity {
         user = FirebaseAuth.getInstance().getCurrentUser();
 
         save.setOnClickListener(v -> {
-
-            if (mNote.getText().toString().isEmpty() || mTitle.getText().toString().isEmpty()){
-                Toast.makeText(addNotes.this, "Both fields are required", Toast.LENGTH_SHORT).show();
+            String title = mTitle.getText().toString();
+            String note = mNote.getText().toString();
+            if (title.isEmpty() || note.isEmpty()){
+                Toast.makeText(getApplicationContext(), "Failed to add Notes", Toast.LENGTH_SHORT).show();
             }
             else {
-                DocumentReference reference = firestore.collection("notes").document(user.getUid()).collection("myNotes").document();
-//                DocumentReference reference = firestore.collection("notes").document(user.getUid()).getParent().document();
-                Map<String,Object> note = new HashMap<>();
-                note.put("title",mTitle.getText().toString());
-                note.put("content",mNote.getText().toString());
-
-                reference.set(note).addOnSuccessListener(unused -> {
-                    Toast.makeText(getApplicationContext(), "Note created Successfully", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(addNotes.this,HomePage.class));
-                }).addOnFailureListener(e -> Toast.makeText(getApplicationContext(), "Failed to add Notes", Toast.LENGTH_SHORT).show());
+//                FirebaseDatabase.getInstance().getReference().child("mynotes").push().child("title").setValue(title);
+                FirebaseDatabase.getInstance().getReference().child("mynotes").push().child("note").setValue(note);
             }
+            startActivity(new Intent(addNotes.this,HomePage.class));
         });
+
     }
 
     @Override
