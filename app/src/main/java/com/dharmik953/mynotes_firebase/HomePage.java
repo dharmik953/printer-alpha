@@ -5,11 +5,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
+import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -30,7 +35,7 @@ public class HomePage extends AppCompatActivity {
     FloatingActionButton addNotes;
     FirebaseAuth mAuth;
     CardView cardView;
-
+    StaggeredGridLayoutManager layoutManager;
     myadapter adapter;
 
     private final FirebaseDatabase db = FirebaseDatabase.getInstance();
@@ -42,12 +47,12 @@ public class HomePage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
 
-
         cardView = findViewById(R.id.note_card);
 
         RecyclerView recyclerView = findViewById(R.id.recyclerview);
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        layoutManager = new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(layoutManager);
         list = new ArrayList<>();
         adapter = new myadapter(this, list);
 
