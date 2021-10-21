@@ -12,6 +12,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyNotesfirebase">
         <activity
+            android:name=".editNote"
+            android:exported="true" />
+        <activity
+            android:name=".noteDetail"
+            android:exported="true" />
+        <activity
             android:name=".googleSignin"
             android:exported="true" />
         <activity android:name=".addNotes" />

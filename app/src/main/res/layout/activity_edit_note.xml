@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="#f2f2f2"
+    android:layout_height="match_parent"
+    tools:context=".editNote">
+
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/et_title_edit"
+        android:padding="12dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:textColor="@color/black"
+        android:textSize="25sp"
+        android:background="#f2f2f2"
+        android:textStyle="bold"
+        android:hint="@string/title">
+    </EditText>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/et_note_edit"
+        android:padding="12dp"
+        android:layout_below="@+id/et_title_edit"
+        android:layout_marginTop="12dp"
+        android:paddingLeft="15dp"
+        android:paddingBottom="150dp"
+        android:paddingRight="15dp"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:background="#f2f2f2"
+        android:gravity="top|left"
+        android:hint="@string/notes"
+        android:textStyle="bold">
+    </EditText>
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btn_update"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:background="@color/pink"
+        android:src="@drawable/ic_baseline_save_24"
+        android:tint="@color/white"
+        app:rippleColor="@color/white"
+        android:layout_alignBottom="@+id/et_note_edit"
+        android:layout_alignParentRight="true"
+        android:contentDescription="none"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginRight="10dp">
+
+    </com.google.android.material.floatingactionbutton.FloatingActionButton>
+
+</RelativeLayout>
